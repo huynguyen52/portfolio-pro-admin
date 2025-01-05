@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { CreateBlogForm } from './create-blog-form';
-import { useCreateBlogMutation } from '../../../queries/blog-queries';
+import { CreateSkillForm } from './create-skill-form';
 import { SubmitHandler } from 'react-hook-form';
-import { CreateBlogVo } from '../../../interface/blog';
 import { useState, useEffect } from 'react';
+import { CreateSkillVo } from '../../../interface/skill';
+import { useCreateSkillMutation } from '../../../queries/skill-queries';
 
 const style = {
   position: 'absolute',
@@ -19,14 +19,14 @@ const style = {
   p: 4,
 };
 
-export function CreateBlogModal() {
+export function CreateSkillModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { mutate, isSuccess } = useCreateBlogMutation();
+  const { mutate, isSuccess } = useCreateSkillMutation();
 
-  const onSubmit: SubmitHandler<CreateBlogVo> = data => {
+  const onSubmit: SubmitHandler<CreateSkillVo> = data => {
     mutate(data);
   };
 
@@ -38,9 +38,7 @@ export function CreateBlogModal() {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Create Blog
-      </Button>
+      <Button onClick={handleOpen}>Create Skill</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -48,7 +46,7 @@ export function CreateBlogModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateBlogForm onSubmit={onSubmit} />
+          <CreateSkillForm onSubmit={onSubmit} />
         </Box>
       </Modal>
     </div>

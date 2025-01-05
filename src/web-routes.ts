@@ -18,6 +18,11 @@ const WEB_ROUTES: {
     text: 'Blogs',
     isMenu: true,
   },
+  SKILLS: {
+    path: '/skills',
+    text: 'Skills',
+    isMenu: true,
+  },
 };
 
 export default WEB_ROUTES;
