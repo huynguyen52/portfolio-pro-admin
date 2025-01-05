@@ -28,6 +28,9 @@ curl http://localhost:8080/api/skills
 
 docker network create portfolio-network
 
+docker network ls
+docker network inspect portfolio-network
+
 docker run -d --name mysql --network portfolio-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=portfolio-pro -p 3306:3306 mysql
 ```
 
