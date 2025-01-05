@@ -16,6 +16,21 @@ usr/share/nginx/html
 /etc/nginx/nginx.conf
 ```
 
+```bash
+docker build -t portfolio-pro-api .
+docker run -d --name portfolio-pro-api --network portfolio-network -p 8080:8080 portfolio-pro-api
+
+docker stop portfolio-pro-api && \
+docker rm portfolio-pro-api && \
+docker rmi portfolio-pro-api
+
+curl http://localhost:8080/api/skills
+
+docker network create portfolio-network
+
+docker run -d --name mysql --network portfolio-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=portfolio-pro -p 3306:3306 mysql
+```
+
 # SQL
 
 ```sql
