@@ -5,7 +5,7 @@ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql
 docker exec -it mysql bash
 
 docker build -t portfolio-pro-admin . && \
-docker run -d --name portfolio-pro-admin -p 3000:3000 portfolio-pro-admin
+docker run -d --network portfolio-network --name portfolio-pro-admin -p 3000:3000 portfolio-pro-admin
 docker exec -it portfolio-pro-admin /bin/sh
 
 docker stop portfolio-pro-admin && \
