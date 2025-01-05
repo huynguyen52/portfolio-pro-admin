@@ -1,12 +1,21 @@
-import { PaletteColor, createTheme } from '@mui/material';
+import { PaletteColorOptions, createTheme } from '@mui/material';
 
 declare module '@mui/material/styles' {
+  interface CustomPalette {
+    danger: PaletteColorOptions;
+  }
   interface Palette {
-    danger?: PaletteColor;
+    danger: PaletteColorOptions;
   }
 
   interface PaletteOptions {
-    danger?: PaletteColor;
+    danger: PaletteColorOptions;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    danger: true;
   }
 }
 

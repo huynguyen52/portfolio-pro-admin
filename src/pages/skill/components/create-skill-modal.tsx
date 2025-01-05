@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { CreateSkillForm } from './create-skill-form';
 import { SubmitHandler } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { CreateSkillVo } from '../../../interface/skill';
 import { useCreateSkillMutation } from '../../../queries/skill-queries';
+import { ButtonComponent } from '../../../components/button';
 
 const style = {
   position: 'absolute',
@@ -38,7 +38,9 @@ export function CreateSkillModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Create Skill</Button>
+      <ButtonComponent onClick={handleOpen} color="danger" variant="contained">
+        Create Skill
+      </ButtonComponent>
       <Modal
         open={open}
         onClose={handleClose}
