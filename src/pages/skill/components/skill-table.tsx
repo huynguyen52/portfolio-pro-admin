@@ -3,17 +3,20 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from 'material-react-table';
-import { getDefaultMRTOptions } from '../../../utils';
-import {
-  useDeleteSkillsMutation,
-  useSkillsQuery,
-} from '../../../queries/skill-queries';
+import { useEffect } from 'react';
 import { Skill } from '../../../interface/skill';
-import { Button } from '@mui/material';
+import { useSkillsQuery } from '../../../queries/skill-queries';
+import { getDefaultMRTOptions } from '../../../utils';
 
 const defaultMRTOptions = getDefaultMRTOptions<Skill>(); //get your default options
 
-export const SkillTableComponent = () => {
+type SkillTableComponentProps = {
+  onRowSelection: (skills: Skill[]) => void;
+};
+
+export const SkillTableComponent = ({
+  onRowSelection,
+}: SkillTableComponentProps) => {
   const columns: MRT_ColumnDef<Skill>[] = [
     {
       accessorKey: 'id',
@@ -26,7 +29,6 @@ export const SkillTableComponent = () => {
   ];
 
   const { data } = useSkillsQuery();
-  const { mutate } = useDeleteSkillsMutation();
 
   const table = useMaterialReactTable({
     ...defaultMRTOptions, //spread your default options
@@ -38,28 +40,15 @@ export const SkillTableComponent = () => {
       showColumnFilters: false, //override default initial state for just this table
     },
     enableRowSelection: true,
-    renderTopToolbar: ({ table }) => {
-      const deleteSelectedSkills = () => {
-        const skillIds = table
-          .getSelectedRowModel()
-          .flatRows.map(row => row.original.id);
-        mutate(skillIds);
-        table.resetRowSelection();
-      };
-      return (
-        <div>
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={deleteSelectedSkills}
-          >
-            Delete skill(s)
-          </Button>
-        </div>
-      );
-    },
     //...
   });
+
+  useEffect(() => {
+    const selectedRows = table
+      .getSelectedRowModel()
+      .flatRows.map(row => row.original);
+    onRowSelection(selectedRows);
+  }, [table.getState().rowSelection]);
 
   return <MaterialReactTable table={table} />;
 };

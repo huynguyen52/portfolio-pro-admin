@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { deleteBlogs, fetchBlogs } from '../api/blog-api';
+import { createBlog, deleteBlogs, fetchBlogs } from '../api/blog-api';
 import { useMutation } from '@tanstack/react-query';
-import { createSkill } from '../api/skill-api';
 
 export const useBlogsQuery = () =>
   useQuery({
@@ -14,7 +13,7 @@ export const useCreateBlogMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ['create-blog'],
-    mutationFn: createSkill,
+    mutationFn: createBlog,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['blogs'] });
     },

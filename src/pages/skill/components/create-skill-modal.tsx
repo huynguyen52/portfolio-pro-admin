@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { CreateSkillForm } from './create-skill-form';
 import { SubmitHandler } from 'react-hook-form';
@@ -19,7 +18,11 @@ const style = {
   p: 4,
 };
 
-export function CreateSkillModal() {
+type CreateSkillModalProps = {
+  modalTrigger: React.ReactNode;
+};
+
+export function CreateSkillModal({ modalTrigger }: CreateSkillModalProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -38,7 +41,7 @@ export function CreateSkillModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Create Skill</Button>
+      <div onClick={handleOpen}>{modalTrigger}</div>
       <Modal
         open={open}
         onClose={handleClose}
